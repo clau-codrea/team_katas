@@ -1,14 +1,12 @@
 def toNumber(digitlist):
-  return sum(list(map(
-            lambda t: (10 ** t[0]) * t[1],
-            zip(range(len(digitlist)-1, -1, -1), digitlist)
-            )))
+  digListWithReverseIndex = zip(range(len(digitlist)-1, -1, -1), digitlist)
+  return sum([(10 ** i) * v for (i,v) in digListWithReverseIndex])
 
 def toDigitList(number):
-  return list(map(lambda x: number // 10 ** x % 10, range(9, -1, -1)))
+  return [number // 10 ** x % 10 for x in range(9, -1, -1)]
 
 def diff(list1, list2):
-  return sorted(list(set(list1) - set(list2)))
+  return [x for x in list1 if x not in list2]
 
 def get_sequence(offset, size):
   snappedOffset = 1023456789 if offset < 1023456789 else offset
