@@ -1,0 +1,65 @@
+import random
+
+    
+def get_number_from_digits(digit_array):
+    number = None
+    base = 1
+    while digit_array:
+        number = number + digit_array[0] * i
+        i *= 10
+        digit_array.pop(0)
+    return number
+
+
+def negate_array(digits_to_negate):
+    result = []
+    digits = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    for i in digits:
+        if i not in digits_to_negate:
+            result.append(i)
+    return result
+
+
+def get_digits_from_number(number):
+    return [int(x) for x in str(number)]
+
+
+def get_missing_digits(offset):
+    offset_array = get_digits_from_number(offset)
+    beginning = []
+    for digit in offset_array:
+        if offset_array.count(digit) > 1:
+            break
+        else:
+            beginning.append(digit)
+    return get_number_from_digits(beginning += [0] * (10 - len(beginning))), negate_array(beginning)
+        
+
+def produce_number(pandigital_beginning, digit_array, offset, result):
+    while True:
+        value = get_number_from_digits(random.shuffle(digit_array))
+        if value > offset:
+            if value not in result:
+                result.append(value)
+                return result    
+
+
+def get_sequence(offset, size):
+    result = []
+    
+    if offset == 9999999999:
+        return result
+    if offset < 0:
+        offset = abs(offset)
+    if offset < 1023456789:
+        offset = 1023456789
+      
+    (pandigital_beginning, digit_array) = get_missing_digits(offset)
+    if not digit_array:
+        digit_array = get_digits_from_number(offset)
+        
+    for i in range(size):
+        result = produce_number(pandigital_beginning, digit_array, offset, result)
+        
+    return result
+
