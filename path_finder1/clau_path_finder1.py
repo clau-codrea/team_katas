@@ -1,4 +1,5 @@
 import enum
+import queue
 
 
 class Square(enum.Enum):
@@ -35,27 +36,26 @@ def type(square, position, size):
 
 
 def can_reach_exit(maze):
-    start_position = (0, 0)
+    neighbors = queue.Queue((0, 0))
     visited = set()
 
-    def visit_neighbor(maze, position):
-        if position in visited:
-            return False
-        visited.add(position)
+    while neighbors:
+        square = neighbors.get()
 
-        if maze[position] == Square.Exit:
+        if maze[square] == Square.Exit:
             return True
 
-        return any(
-            visit_neighbor(maze, square)
+        if square not in visited:
+            visited.add(square)
+
             for square in (
                 (position[0] + direction.value[0], position[1] + direction.value[1])
                 for direction in Direction
-            )
-            if square in maze and maze[square] != Square.Wall
-        )
+            ):
+                if square in maze and maze[square] != Square.Wall:
+                    neighbors.put(square)
 
-    return visit_neighbor(maze, start_position)
+    return False
 
 
 def path_finder(maze_representation):
