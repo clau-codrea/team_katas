@@ -6,7 +6,6 @@ Empty positions are marked .. Walls are marked W. Start and exit positions are e
 
 space_char = '.'
 wall_char  = 'W'
-flood_char = '~'
 
 def make_maze(input):
   rows = input.split("\n")
